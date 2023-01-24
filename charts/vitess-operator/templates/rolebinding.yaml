@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: vitess-operator
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: vitess-operator
+subjects:
+- kind: ServiceAccount
+  name: {{ include "vitess-operator-chart.serviceAccountName" . }}

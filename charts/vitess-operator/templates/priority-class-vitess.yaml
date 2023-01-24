@@ -1,0 +1,9 @@
+{{- if and .Values.priorityClass.enabled (not .Values.priorityClass.useExisting) -}}
+apiVersion: scheduling.k8s.io/v1
+description: Vitess components (vttablet, vtgate, vtctld, etcd)
+globalDefault: false
+kind: PriorityClass
+metadata:
+  name: {{ .Values.priorityClass.vitess.name }}
+value: {{ .Values.priorityClass.vitess.value }}
+{{- end -}}
