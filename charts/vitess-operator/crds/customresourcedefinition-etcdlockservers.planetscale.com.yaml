@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
     annotations:
-        controller-gen.kubebuilder.io/version: v0.6.2
+        controller-gen.kubebuilder.io/version: v0.11.3
     creationTimestamp: null
     name: etcdlockservers.planetscale.com
 spec:
@@ -73,8 +73,35 @@ spec:
                                             - kind
                                             - name
                                         type: object
+                                        x-kubernetes-map-type: atomic
+                                    dataSourceRef:
+                                        properties:
+                                            apiGroup:
+                                                type: string
+                                            kind:
+                                                type: string
+                                            name:
+                                                type: string
+                                            namespace:
+                                                type: string
+                                        required:
+                                            - kind
+                                            - name
+                                        type: object
                                     resources:
                                         properties:
+                                            claims:
+                                                items:
+                                                    properties:
+                                                        name:
+                                                            type: string
+                                                    required:
+                                                        - name
+                                                    type: object
+                                                type: array
+                                                x-kubernetes-list-map-keys:
+                                                    - name
+                                                x-kubernetes-list-type: map
                                             limits:
                                                 additionalProperties:
                                                     anyOf:
@@ -115,6 +142,7 @@ spec:
                                                     type: string
                                                 type: object
                                         type: object
+                                        x-kubernetes-map-type: atomic
                                     storageClassName:
                                         type: string
                                     volumeMode:
@@ -142,6 +170,7 @@ spec:
                                                     required:
                                                         - key
                                                     type: object
+                                                    x-kubernetes-map-type: atomic
                                                 fieldRef:
                                                     properties:
                                                         apiVersion:
@@ -151,6 +180,7 @@ spec:
                                                     required:
                                                         - fieldPath
                                                     type: object
+                                                    x-kubernetes-map-type: atomic
                                                 resourceFieldRef:
                                                     properties:
                                                         containerName:
@@ -166,6 +196,7 @@ spec:
                                                     required:
                                                         - resource
                                                     type: object
+                                                    x-kubernetes-map-type: atomic
                                                 secretKeyRef:
                                                     properties:
                                                         key:
@@ -177,6 +208,7 @@ spec:
                                                     required:
                                                         - key
                                                     type: object
+                                                    x-kubernetes-map-type: atomic
                                             type: object
                                     required:
                                         - name
@@ -222,6 +254,7 @@ spec:
                                         name:
                                             type: string
                                     type: object
+                                    x-kubernetes-map-type: atomic
                                 type: array
                             initContainers:
                                 x-kubernetes-preserve-unknown-fields: true
@@ -241,6 +274,18 @@ spec:
                                 type: object
                             resources:
                                 properties:
+                                    claims:
+                                        items:
+                                            properties:
+                                                name:
+                                                    type: string
+                                            required:
+                                                - name
+                                            type: object
+                                        type: array
+                                        x-kubernetes-list-map-keys:
+                                            - name
+                                        x-kubernetes-list-type: map
                                     limits:
                                         additionalProperties:
                                             anyOf:
@@ -280,9 +325,3 @@ spec:
           storage: true
           subresources:
             status: {}
-status:
-    acceptedNames:
-        kind: ""
-        plural: ""
-    conditions: []
-    storedVersions: []

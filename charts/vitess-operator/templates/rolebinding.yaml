@@ -8,5 +8,5 @@ roleRef:
   kind: Role
   name: vitess-operator
 subjects:
-- kind: ServiceAccount
-  name: {{ include "vitess-operator-chart.serviceAccountName" . }}
+  - kind: ServiceAccount
+    name: {{ include "vitess-operator-chart.serviceAccountName" . }}
