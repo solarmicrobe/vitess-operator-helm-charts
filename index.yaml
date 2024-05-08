@@ -3,6 +3,16 @@ entries:
   vitess-operator:
   - apiVersion: v2
     appVersion: v2.12.0
+    created: "2024-05-08T22:03:06.414878384Z"
+    description: A Helm chart for Kubernetes
+    digest: e97a9789e8f16844b8e0bfeb1acc271066dcd1a9cd9ac0f763828faaa118984a
+    name: vitess-operator
+    type: application
+    urls:
+    - https://github.com/solarmicrobe/vitess-operator-helm-charts/releases/download/vitess-operator-0.8.0/vitess-operator-0.8.0.tgz
+    version: 0.8.0
+  - apiVersion: v2
+    appVersion: v2.12.0
     created: "2024-05-04T15:52:22.496289168Z"
     description: A Helm chart for Kubernetes
     digest: 74f6cebcd12c0172717dce4bf168e6afd0b54047747d87e43510ad591c62e7f3
@@ -71,4 +81,4 @@ entries:
     urls:
     - https://github.com/solarmicrobe/vitess-operator-helm-charts/releases/download/vitess-operator-0.3.0/vitess-operator-0.3.0.tgz
     version: 0.3.0
-generated: "2024-05-04T15:52:22.496321919Z"
+generated: "2024-05-08T22:03:06.41491352Z"
