@@ -77,3 +77,23 @@ deployment:
   args:
     - --logtostderr
     - -v=4
+  defaultEnvVars:
+    # -- Namespace to watch for CRDS
+    WATCH_NAMESPACE:
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace 
+    POD_NAME:
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    PS_OPERATOR_POD_NAMESPACE:
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+    PS_OPERATOR_POD_NAME:
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    OPERATOR_NAME:
+      value: vitess-operator
