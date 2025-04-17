@@ -30,7 +30,6 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
 
 securityContext: {}
   # capabilities:
@@ -76,8 +75,8 @@ priorityClass:
 deployment:
   # -- Arguments to vitess-operator
   args:
-    - --logtostderr
-    - -v=4
+  - --logtostderr
+  - -v=4
   # -- Environment variables to pass to vitess-operator
   # Particularly noteworthy is WATCH_NAMESPACE to determine which
   # namespaces to watch for CRDS. The default is the namespace wherein

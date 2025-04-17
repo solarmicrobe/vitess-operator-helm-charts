@@ -26,7 +26,7 @@ spec:
         {{- toYaml .securityContext | nindent 8 }}
       containers:
         - args:
-            {{ toYaml .deployment.args | nindent 12 }}
+            {{- toYaml .deployment.args | nindent 12 }}
           command:
             - vitess-operator
           env:
@@ -47,7 +47,9 @@ spec:
           resources:
             {{- toYaml .resources | nindent 12 }}
       priorityClassName: vitess-operator-control-plane
-      serviceAccountName: {{ .serviceAccountName }}
+      {{- with $ }}
+      serviceAccountName: {{ template "vitess-operator-chart.serviceAccountName" . }}
+      {{- end }}
       nodeSelector:
         {{- toYaml .nodeSelector | nindent 8 }}
       affinity:
