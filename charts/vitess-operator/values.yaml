@@ -74,15 +74,20 @@ priorityClass:
     value: 5000
 
 deployment:
+  # -- Arguments to vitess-operator
   args:
     - --logtostderr
     - -v=4
+  # -- Environment variables to pass to vitess-operator
+  # Particularly noteworthy is WATCH_NAMESPACE to determine which
+  # namespaces to watch for CRDS. The default is the namespace wherein
+  # the chart is installed and can also be a direct "value" of a 
+  # comma-separated list of namespaces
   defaultEnvVars:
-    # -- Namespace to watch for CRDS
     WATCH_NAMESPACE:
       valueFrom:
         fieldRef:
-          fieldPath: metadata.namespace 
+          fieldPath: metadata.namespace
     POD_NAME:
       valueFrom:
         fieldRef:

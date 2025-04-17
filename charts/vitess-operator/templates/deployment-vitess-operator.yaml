@@ -19,49 +19,39 @@ spec:
       labels:
         {{- include "vitess-operator-chart.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- toYaml .imagePullSecrets | nindent 8 }}
       securityContext:
-        {{- toYaml .Values.securityContext | nindent 8 }}
+        {{- toYaml .securityContext | nindent 8 }}
       containers:
         - args:
-            {{- range .Values.deployment.args }}
-            {{ print "- " . }}
-            {{- end }}
+            {{ toYaml .deployment.args | nindent 12 }}
           command:
             - vitess-operator
           env:
-            {{- range  $envVarName, $envVarValue := .Values.deployment.envVars }}
+            {{- range  $envVarName, $envVarValue := .deployment.envVars }}
             - name: {{ $envVarName }}
               {{- toYaml $envVarValue | nindent 14}}
             {{- end }}
-            {{- $envVars := .Values.deployment.envVars }}
-            {{- range  $envVarName, $envVarValue := .Values.deployment.defaultEnvVars }}
+            {{- $envVars := .deployment.envVars }}
+            {{- range  $envVarName, $envVarValue := .deployment.defaultEnvVars }}
             {{- if not  (hasKey $envVars $envVarName) }}
             - name: {{ $envVarName }}
               {{- toYaml $envVarValue | nindent 14}}
             {{- end }}
             {{- end }}
-          securityContext:
-            {{- toYaml .Values.podSecurityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .image.repository }}:{{ .image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .image.pullPolicy }}
           name: vitess-operator
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .resources | nindent 12 }}
       priorityClassName: vitess-operator-control-plane
       serviceAccountName: {{ include "vitess-operator-chart.serviceAccountName" . }}
-      {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
+        {{- toYaml .nodeSelector | nindent 8 }}
       affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
+        {{- toYaml .affinity | nindent 8 }}
       tolerations:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml .tolerations | nindent 8 }}
       {{- end }}
