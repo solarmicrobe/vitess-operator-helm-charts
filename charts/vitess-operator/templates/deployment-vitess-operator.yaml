@@ -41,13 +41,13 @@ spec:
               {{- toYaml $envVarValue | nindent 14}}
             {{- end }}
             {{- end }}
-          image: "{{ .image.repository }}:{{ .image.tag | default .Chart.AppVersion }}"
+          image: "{{ .image.repository }}:{{ .image.tag | default $.Chart.AppVersion }}"
           imagePullPolicy: {{ .image.pullPolicy }}
           name: vitess-operator
           resources:
             {{- toYaml .resources | nindent 12 }}
       priorityClassName: vitess-operator-control-plane
-      serviceAccountName: {{ include "vitess-operator-chart.serviceAccountName" . }}
+      serviceAccountName: {{ .serviceAccountName }}
       nodeSelector:
         {{- toYaml .nodeSelector | nindent 8 }}
       affinity:
